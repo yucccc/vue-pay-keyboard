@@ -18,6 +18,7 @@ components: {
 | -----------------  | ---------------- | :--------: | :----------: |
 | highlightColor       | Click on the highlighted the background color |String| #000
 | pasDigits        | The password to enter digits |Number | 6
+| isPay        | According to the keyboard |Boolean | false
 
 
 ### Functions
