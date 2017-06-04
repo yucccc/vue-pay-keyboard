@@ -8,7 +8,7 @@ npm install vue-pay-keyboard -S
 ```
 ### 使用
 ```
-import payKeyboard from 'vue-pay-keyboard'
+import {payKeyboard} from 'vue-pay-keyboard'
 components: {
   payKeyboard
 }
