@@ -1,18 +1,26 @@
 # vue-pay-keyboard
 
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+A Vue component to pay-keyboard
+一个虚拟数字支付键盘插件
+### 安装
 ```
+npm install vue-pay-keyboard -S
+```
+### 使用
+```
+import payKeyboard from 'vue-pay-keyboard'
+components: {
+  payKeyboard
+}
+```
+### Options
+|    Property    |    Description   |   type   |	default	|
+| -----------------  | ---------------- | :--------: | :----------: |
+| highlightColor       | Click on the highlighted the background color |String| #000
+| pasDigits        | The password to enter digits |Number | 6
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+### Functions
+| Function Name | Description   |
+| :--------:   | -----  |
+|    pasEnd    |  Password to complete
