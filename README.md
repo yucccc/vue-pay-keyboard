@@ -17,7 +17,7 @@ npm install vue-pay-keyboard -S
 
 ```js
 // ES6
-import vuePayKeyboard from './lib/index.js'
+import vuePayKeyboard from 'vue-pay-keyboard.js'
 // require
 var vuePayKeyboard = require('PayKeyboard')
 
