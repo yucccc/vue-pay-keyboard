@@ -2,31 +2,46 @@
 
 A Vue component to pay-keyboard
 一个虚拟数字支付键盘插件
-### 安装
-```
+
+## demo演示
+
+[demo](http://yucccc.com/vuepayboard/)
+
+## 安装
+
+```JS
 npm install vue-pay-keyboard -S
 ```
-### 使用
-```
-// 导入
+
+## 使用
+
+```js
+// ES6
 import vuePayKeyboard from './lib/index.js'
+// require
 var vuePayKeyboard = require('PayKeyboard')
+
 Vue.use(vuePayKeyboard)
-或者直接使用script导入
+
+// 或者直接使用script导入
+<script src="./node_modules/vue/dist/vue-pay-keyboard.js"></script>
+
 // 作为组件的方式使用
 <vue-pay-keyboard></vue-pay-keyboard>
 ```
 
 ### Options
-|    Property    |    Description   |   type   |	default	|
+
+|    Property    |    Description   |   type   |default|
 | -----------------  | ---------------- | :--------: | :----------: |
-| highlightColor       | Click on the highlighted the background color |String| #000
-| pasDigits        | The password to enter digits |Number | 6
-| isPay        | According to the keyboard |Boolean | false
-| payTitle        | Pay the title |String | 请输入支付密码
+| highlightColor       | 点击时高亮颜色 |String| #000
+| pasDigits        | 密码位数 |Number | 6
+| isPay        | 显示键盘 |Boolean | false
+| payTitle        | 支付标题 |String | 请输入支付密码
 
 ### Functions
+
 | Function Name | Description   |
 | :--------:   | -----  |
-|    pasEnd    |  Password to complete
-|    close    |  Close the keyboard
+|    pasEnd    |  密码输入完毕
+|    close    |  关闭键盘
