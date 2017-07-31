@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-pay-keyboard</title>
+  <style>
+    button {
+      border: 1px solid #ccc;
+      height: 30px;
+      width: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="payShow()">点击支付</button>
+    <vue-pay-keyboard :is-pay='isPay' @pas-end='pasEnd' @close='isPay=false'></vue-pay-keyboard>
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script src="./dist/vue-pay-keyboard.js"></script>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        isPay: false
+      }
+    },
+    methods: {
+      payShow() {
+        this.isPay = true;
+      },
+      pasEnd(val) {
+        console.log(val); //得到密码 可能会进行一些加密动作
+        // 请求接口 验证密码是否正确
+      }
+    }
+  })
+</script>
+
+</html>

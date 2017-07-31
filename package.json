@@ -1,21 +1,21 @@
 {
   "name": "vue-pay-keyboard",
   "description": "A Vue component to pay-keyboard",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "author": "yucccc <13450003105@163.com>",
-  "private": false,
+  "private": true,
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/vue-pay-keyboard.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
-  "repository": {
-    "type" : "git",
-    "url" : "https://github.com/yucccc/vue-pay-keyboard"
-  },
   "dependencies": {
     "vue": "^2.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yucccc/vue-pay-keyboard"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
