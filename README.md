@@ -43,5 +43,5 @@ Vue.use(vuePayKeyboard)
 
 | Function Name | Description   |
 | :--------:   | -----  |
-|    pasEnd    |  密码输入完毕
+|    pasEnd    |  密码输入完毕后触发事件,接收所输密码
 |    close    |  关闭键盘
