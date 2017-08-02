@@ -70,10 +70,6 @@ export default {
         isPay: {
             type: Boolean,
             default: false
-        },
-        payStatus: {
-            type: Boolean,
-            default: false // 失败 fai 成功 suc
         }
     },
     data() {
@@ -84,10 +80,15 @@ export default {
             val: [],
             keyList: [
                 [1, 2, 3],
-                [4, 5, 6],
+                [4, 6, 6],
                 [7, 8, 9]
             ],
-            payStatusText: ''
+            payStatus: false
+        }
+    },
+    computed: {
+        payStatusText() {
+            return this.payStatus ? '支付成功!' : '支付失败,请重输密码!'
         }
     },
     methods: {
@@ -113,14 +114,14 @@ export default {
                 this.val.push(val)
                 if (this.val.length === this.pasDigits) {
                     // 密码输入完毕
-                    this.$emit('pasEnd', this.val.join(''))
+                    this.$emit('pas-end', this.val.join(''))
                     this.keyShow = false;
                     this.lodingShow = true;
                     this.$refs.loading.classList.add('loading-ani')
                     this.val = [];
                 }
             } else {
-                this.$emit('pasEnd', this.val.join(''))
+                this.$emit('pas-end', this.val.join(''))
             }
             // 设置高亮
             this.highlight(e.currentTarget)
@@ -133,31 +134,27 @@ export default {
         },
         close() {
             this.$emit('close')
-        }
-    },
-    watch: {
-        payStatus: function (val) {
-            if (val) {
-                this.lodingShow = false;
-                this.paySuc = true;
-                this.payStatusText = '支付成功'
-                setTimeout(() => {
+        },
+        $payStatus(flag) {
+            if (typeof flag != 'boolean') return;
+            this.payStatus = flag;
+            this.lodingShow = false;
+            this.paySuc = true;
+            if (flag) {
+                timer = setTimeout(() => {
+                    clearTimeout(timer)
                     this.$emit('close')
                     this.keyShow = true;
                     this.paySuc = false;
                     this.$refs.loading.classList.remove('loading-ani')
                 }, 800)
-            } else if (!val) {
-                this.lodingShow = false;
-                this.paySuc = true;
-                this.payStatusText = '支付失败,请重输密码'
-                setTimeout(() => {
+            } else {
+                timer = setTimeout(() => {
+                    clearTimeout(timer)
                     this.keyShow = true;
                     this.paySuc = false;
                     this.$refs.loading.classList.remove('loading-ani')
                 }, 800)
-            } else {
-                return false;
             }
         }
     }
@@ -337,6 +334,72 @@ input {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*键盘盒子*/
 
 .key-box {
@@ -359,6 +422,72 @@ input {
         flex: 1;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

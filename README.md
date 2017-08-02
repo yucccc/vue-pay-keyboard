@@ -33,11 +33,11 @@ Vue.use(vuePayKeyboard)
 ### 配置
 
 ```html
-    <vue-pay-keyboard
-    :isPay='isPay1'
-    @pasEnd='pasEnd1'
-    @close='isPay1=false'
-    :payStatus="payStatus1">
+   <vue-pay-keyboard
+   ref="pay"
+   :is-pay='isPay'
+   @pas-end='pasEnd'
+   @close='isPay=false'>
     <!-- 自定义支付动画 -->
       <div slot="loading-ani">
         <svg></svg>
@@ -47,39 +47,38 @@ Vue.use(vuePayKeyboard)
 
 ```javascript
 methods:{
-    pasEnd1(val) {
+    pasEnd(val) {
       console.log(val);  //得到密码 可能会进行一些加密动作
       setTimeout(() => { // 模拟请求接口验证密码中 ..
-        if (val === '111111') { // 如果密码正确
-          this.payStatus1 = true
-        } else {// 密码错误
-          this.payStatus1 = false
+        if (val === '111111') { // 密码正确
+          this.$refs.pay.$payStatus(true) // 拿到子组件的事件
+        } else {
+          this.$refs.pay.$payStatus(false)
         }
       }, 1000)
     }
 }
 ```
 
-### Options
+### Props
 
-|    Property    |    Description   |   type   |default|
+|    name    |    Description   |   type   |default|
 | -----------------  | ---------------- | :--------: | :----------: |
-| highlightColor       | 点击时高亮颜色 |String| #000
-| pasDigits        | 密码位数 |Number | 6
-| isPay        | 显示键盘 |Boolean | false
-| payTitle        | 支付标题 |String | 请输入支付密码
-| payStatus        | 支付成功或失败状态 |Boolean | false
+| highlight-color       | 点击时高亮颜色 |String| #000
+| pas-digits        | 密码位数 |Number | 6
+| is-pay        | 显示键盘 |Boolean | false
+| pay-title        | 支付标题 |String | 请输入支付密码
 
-### slot 支持自定义插槽
+### Slots 支持自定义插槽
 
 |    name    |    Description   |   type   |default|
 | -----------------  | ---------------- | :--------: | :----------: |
 | loading-ani       | 支付请求中 || loading
 | pay-status        | 支付成功或者失败|| 支付成功
 
-### Functions
+### Events
 
-| Function Name | Description   |
+| name | Description   |
 | :--------:   | -----  |
-|    pasEnd    |  密码输入完毕后触发事件,接收所输密码
+|    pas-end    |  密码输入完毕后触发事件,接收所输密码
 |    close    |  关闭键盘
