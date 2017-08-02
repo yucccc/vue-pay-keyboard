@@ -30,6 +30,36 @@ Vue.use(vuePayKeyboard)
 <vue-pay-keyboard></vue-pay-keyboard>
 ```
 
+### 配置
+
+```html
+    <vue-pay-keyboard
+    :isPay='isPay1'
+    @pasEnd='pasEnd1'
+    @close='isPay1=false'
+    :payStatus="payStatus1">
+    <!-- 自定义支付动画 -->
+      <div slot="loading-ani">
+        <svg></svg>
+      </div>
+    </vue-pay-keyboard>
+```
+
+```javascript
+methods:{
+    pasEnd1(val) {
+      console.log(val);  //得到密码 可能会进行一些加密动作
+      setTimeout(() => { // 模拟请求接口验证密码中 ..
+        if (val === '111111') { // 如果密码正确
+          this.payStatus1 = true
+        } else {// 密码错误
+          this.payStatus1 = false
+        }
+      }, 1000)
+    }
+}
+```
+
 ### Options
 
 |    Property    |    Description   |   type   |default|
