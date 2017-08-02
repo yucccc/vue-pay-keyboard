@@ -1,6 +1,7 @@
 <template>
     <div class="pay-box" v-if="isPay">
-        <div>
+        <!-- <transition v-on:before-enter="beforeEnter"> -->
+        <div v-if="isPay">
             <!-- 标题 -->
             <div class="title v-1px-b pr">
                 <span>{{payTitle}}</span>
@@ -18,30 +19,35 @@
             </div>
     
             <!--keyboard-->
-            <transition name="slide">
-                <div class="key-box" v-show="keyShow">
-                    <div class="item v-1px-t" v-for="(item, i) in keyList" :key="i">
-                        <div class="key" v-for="(val, key) in item" :key="key" @touchstart="inputStart(val, $event)" @touchend="inputEnd($event)" :class="{'v-1px-l':key!=0}">
-                            {{val}}
-                        </div>
-                    </div>
-                    <div class="item v-1px-t">
-                        <div class="key  " style="background: #e8e8e8"></div>
-                        <div class="key v-1px-l" @touchstart="inputStart(0, $event)" @touchend="inputEnd($event)">0
-                        </div>
-                        <div class="key v-1px-l" style="background: #e8e8e8" @touchstart="del($event)" @touchend="inputEnd($event,'del')">-
-                        </div>
+            <div class="key-box" v-if="keyShow">
+                <div class="item v-1px-t" v-for="(item, i) in keyList" :key="i">
+                    <div class="key" v-for="(val, key) in item" :key="key" @touchstart="inputStart(val, $event)" @touchend="inputEnd($event)" :class="{'v-1px-l':key!=0}">
+                        {{val}}
                     </div>
                 </div>
-            </transition>
-            <div style="text-align: center;" v-show='paySuc'>支付成功!</div>
+                <div class="item v-1px-t">
+                    <div class="key  " style="background: #e8e8e8"></div>
+                    <div class="key v-1px-l" @touchstart="inputStart(0, $event)" @touchend="inputEnd($event)">0
+                    </div>
+                    <div class="key v-1px-l" style="background: #e8e8e8" @touchstart="del($event)" @touchend="inputEnd($event,'del')">-
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;" v-show='paySuc'>
+                <slot name='pay-status'>
+                    {{payStatusText}}
+                </slot>
+            </div>
             <!-- 密码输入完毕动画 -->
-            <div class="loading" v-show="lodingShow">
-                <svg t="1501508156392" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1936" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100">
-                    <path d="M914.9 682.1c-22 52.1-53.5 98.8-93.7 139s-86.9 71.7-139 93.7c-53.9 22.8-111.1 34.3-170.2 34.3s-116.3-11.5-170.1-34.3c-52.1-22-98.8-53.5-139-93.7s-71.7-86.9-93.7-139C86.4 628.3 74.8 571.1 74.8 512s11.5-116.3 34.3-170.2c22-52.1 53.5-98.8 93.7-139s86.9-71.7 139-93.7c43.3-18.3 88.8-29.4 135.7-33C497 74.6 512 58.4 512 38.9l0 0c0-21.8-18.6-39-40.3-37.3C207.8 22.1 0 242.8 0 512c0 282.8 229.2 512 512 512 269.2 0 489.9-207.8 510.4-471.7 1.7-21.7-15.5-40.3-37.3-40.3l0 0c-19.5 0-35.8 15-37.3 34.4C944.2 593.3 933.2 638.8 914.9 682.1z" p-id="1937" fill="#6A8FE5"></path>
-                </svg>
+            <div class="loading" v-show="lodingShow" ref="loading">
+                <slot name='loading-ani'>
+                    <svg t="1501508156392" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1936" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100">
+                        <path d="M914.9 682.1c-22 52.1-53.5 98.8-93.7 139s-86.9 71.7-139 93.7c-53.9 22.8-111.1 34.3-170.2 34.3s-116.3-11.5-170.1-34.3c-52.1-22-98.8-53.5-139-93.7s-71.7-86.9-93.7-139C86.4 628.3 74.8 571.1 74.8 512s11.5-116.3 34.3-170.2c22-52.1 53.5-98.8 93.7-139s86.9-71.7 139-93.7c43.3-18.3 88.8-29.4 135.7-33C497 74.6 512 58.4 512 38.9l0 0c0-21.8-18.6-39-40.3-37.3C207.8 22.1 0 242.8 0 512c0 282.8 229.2 512 512 512 269.2 0 489.9-207.8 510.4-471.7 1.7-21.7-15.5-40.3-37.3-40.3l0 0c-19.5 0-35.8 15-37.3 34.4C944.2 593.3 933.2 638.8 914.9 682.1z" p-id="1937" fill="#6A8FE5"></path>
+                    </svg>
+                </slot>
             </div>
         </div>
+        <!-- </transition> -->
     </div>
 </template>
 <script>
@@ -64,6 +70,10 @@ export default {
         isPay: {
             type: Boolean,
             default: false
+        },
+        payStatus: {
+            type: Boolean,
+            default: false // 失败 fai 成功 suc
         }
     },
     data() {
@@ -76,7 +86,8 @@ export default {
                 [1, 2, 3],
                 [4, 5, 6],
                 [7, 8, 9]
-            ]
+            ],
+            payStatusText: ''
         }
     },
     methods: {
@@ -105,17 +116,8 @@ export default {
                     this.$emit('pasEnd', this.val.join(''))
                     this.keyShow = false;
                     this.lodingShow = true;
+                    this.$refs.loading.classList.add('loading-ani')
                     this.val = [];
-                    timer = setTimeout(() => {
-                        clearTimeout(timer)
-                        this.lodingShow = false;
-                        this.paySuc = true;
-                        setTimeout(() => {
-                            this.$emit('close')
-                            this.keyShow = true;
-                            this.paySuc = false;
-                        }, 800)
-                    }, 2000);
                 }
             } else {
                 this.$emit('pasEnd', this.val.join(''))
@@ -123,6 +125,7 @@ export default {
             // 设置高亮
             this.highlight(e.currentTarget)
         },
+        // 删除输入
         del() {
             if (this.val.length > 0) {
                 this.val.pop()
@@ -131,8 +134,33 @@ export default {
         close() {
             this.$emit('close')
         }
+    },
+    watch: {
+        payStatus: function (val) {
+            if (val) {
+                this.lodingShow = false;
+                this.paySuc = true;
+                this.payStatusText = '支付成功'
+                setTimeout(() => {
+                    this.$emit('close')
+                    this.keyShow = true;
+                    this.paySuc = false;
+                    this.$refs.loading.classList.remove('loading-ani')
+                }, 800)
+            } else if (!val) {
+                this.lodingShow = false;
+                this.paySuc = true;
+                this.payStatusText = '支付失败,请重输密码'
+                setTimeout(() => {
+                    this.keyShow = true;
+                    this.paySuc = false;
+                    this.$refs.loading.classList.remove('loading-ani')
+                }, 800)
+            } else {
+                return false;
+            }
+        }
     }
-
 }
 </script>
 <style lang="scss" scoped>
@@ -144,6 +172,15 @@ input {
     -o-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box
+}
+
+input {
+    background: none;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-color: transparent;
+    -webkit-appearance: none;
 }
 
 @keyframes loadingRotate {
@@ -177,6 +214,9 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.loading-ani {
     animation: loadingRotate .8s infinite;
 }
 
@@ -197,6 +237,7 @@ input {
         height: 68%;
         left: 0;
         bottom: 0;
+        color: #363636;
         background-color: #fff;
     }
 }
@@ -284,6 +325,18 @@ input {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /*键盘盒子*/
 
 .key-box {
@@ -329,6 +382,18 @@ input {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /*输入密码框*/
 
 .pas-box {
@@ -340,6 +405,9 @@ input {
     text-align: center;
     >div {
         flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         >input {
             width: 100%;
             font-size: 18px;
@@ -348,5 +416,14 @@ input {
             display: block;
         }
     }
+}
+
+// 进入动画
+.slide-enter-active {
+    transition: all 10s ease; //   transform: translateY(0px)
+}
+
+.slide-enter {
+    transform: translateY(500px)
 }
 </style>

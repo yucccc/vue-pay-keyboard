@@ -38,6 +38,14 @@ Vue.use(vuePayKeyboard)
 | pasDigits        | 密码位数 |Number | 6
 | isPay        | 显示键盘 |Boolean | false
 | payTitle        | 支付标题 |String | 请输入支付密码
+| payStatus        | 支付成功或失败状态 |Boolean | false
+
+### slot 支持自定义插槽
+
+|    name    |    Description   |   type   |default|
+| -----------------  | ---------------- | :--------: | :----------: |
+| loading-ani       | 支付请求中 || loading
+| pay-status        | 支付成功或者失败|| 支付成功
 
 ### Functions
 
