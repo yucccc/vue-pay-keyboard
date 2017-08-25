@@ -5,7 +5,7 @@ A Vue component to pay-keyboard
 
 ## demo演示
 
-[demo](http://yucccc.com/vuepayboard/)
+[demo](http://mall.yucccc.com/vuepayboard/)
 
 ## 安装
 
