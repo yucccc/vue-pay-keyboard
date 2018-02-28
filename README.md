@@ -3,6 +3,8 @@
 A Vue component to pay-keyboard
 一个虚拟数字支付键盘插件
 
+[vue插件开发与发布](https://www.jianshu.com/p/d6855556cd75)
+
 ## demo演示
 
 [demo](http://mall.yucccc.com/vuepayboard/)
