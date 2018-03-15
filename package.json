@@ -1,14 +1,15 @@
 {
   "name": "vue-pay-keyboard",
   "description": "A Vue component to pay-keyboard",
-  "version": "1.1.3",
+  "version": "1.1.5",
   "author": "yucccc <13450003105@163.com>",
   "private": false,
   "license": "MIT",
   "main": "dist/vue-pay-keyboard.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "pub": "npm run build && npm publish"
   },
   "dependencies": {
     "vue": "^2.3.3",
